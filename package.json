@@ -1,0 +1,62 @@
+{
+  "name": "nodejs-docs-samples",
+  "description": "Node.js samples found on https://cloud.google.com",
+  "version": "0.0.1",
+  "private": true,
+  "license": "Apache Version 2.0",
+  "author": "Google Inc.",
+  "contributors": [
+    {
+      "name": "Jerjou",
+      "email": "jerjou@google.com"
+    },
+    {
+      "name": "Jason Dobry",
+      "email": "jason.dobry@gmail.com"
+    },
+    {
+      "name": "Jon Wayne Parrott",
+      "email": "jonwayne@google.com"
+    }
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/GoogleCloudPlatform/nodejs-docs-samples.git"
+  },
+  "scripts": {
+    "jshint": "jshint --exclude-path=.jshintignore .",
+    "deps_appengine": "ava --match='*: dependencies should install*'",
+    "ava": "ava --match='!*: dependencies should install*'",
+    "ava:deps": "npm run deps_appengine && npm run ava",
+    "cover": "npm run deps_appengine && nyc ava --match='!*: dependencies should install*'",
+    "report": "nyc report --reporter=lcov | codecov",
+    "report-html": "nyc report --reporter=html",
+    "deps_gce": "cd computeengine; npm i; cd ../",
+    "deps_bigquery": "cd bigquery; npm i; cd ../",
+    "deps_datastore": "cd datastore; npm i; cd ../",
+    "deps_pubsub": "cd pubsub; npm i; cd ../",
+    "deps_monitoring": "cd monitoring; npm i; cd ../",
+    "deps_storage": "cd storage; npm i; cd ../",
+    "deps_prediction": "cd prediction; npm i; cd ../",
+    "deps_logging": "cd logging; npm i; cd ../",
+    "deps_functions": "cd functions/uuid; npm i; cd ../..",
+    "pretest_geddy": "cd appengine/geddy; npm i geddy; GEDDY_SECRET=config/secrets.json; [[ -f $GEDDY_SECRET ]] || echo '{}' > $GEDDY_SECRET && node node_modules/.bin/geddy gen secret; cd ../..;",
+    "pretest": "npm run deps_gce; npm run deps_bigquery; npm run deps_datastore; npm run deps_monitoring; npm run deps_storage; npm run deps_pubsub; npm run deps_prediction; npm run deps_logging; npm run deps_functions; npm run pretest_geddy",
+    "test": "npm run jshint && npm run cover"
+  },
+  "ava": {
+    "files": [
+      "test/**/*.test.js"
+    ]
+  },
+  "devDependencies": {
+    "async": "^1.5.2",
+    "ava": "^0.13.0",
+    "codecov": "^1.0.1",
+    "jshint": "~2.9.1",
+    "nyc": "^6.1.1",
+    "proxyquire": "^1.7.4",
+    "request": "^2.70.0",
+    "supertest": "^1.2.0"
+  }
+}
