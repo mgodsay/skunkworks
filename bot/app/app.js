@@ -41,13 +41,15 @@ app.get('/webhook/', function (req, res) {
 
 
 app.post('/webhook/', function (req, res) {
+  console.log("I am in the webhook");
+  console.log(req.body);
   messaging_events = req.body.entry[0].messaging;
   for (i = 0; i < messaging_events.length; i++) {
    event = req.body.entry[0].messaging[i];
    sender = event.sender.id;
    if (event.message && event.message.text) {
     text = event.message.text;
-    if (text === 'Generic') {
+    if (text === 'Deals') {
       sendGenericMessage(sender);
       continue;
     }else{
@@ -57,15 +59,16 @@ app.post('/webhook/', function (req, res) {
   }
   if (event.postback) {
     text = JSON.stringify(event.postback);
-    sendTextMessage(sender, "Postback received: "+text.substring(0, 200), token);
+   // sendTextMessage(sender, "Postback received: "+text.substring(0, 200), token);
+   respondToPostbacks(sender, event.postback);
     continue;
   }
 }
 res.sendStatus(200);
 });
 
-var token = "CAAT6h9nizVIBAJ5o0GqEH52Wlwf8Anc8JJAzqmzJgH0ZAZAPZBTvCleKbGcrTR4fOlNRK12JiHHld2GjgT8seSkeXKveadeMEqHS6KcKYSfghHo2ux5h0doqc9WZA3WoeCgZA5QJCJWUZA8UIeh0nUpPKEOeyRXmndVm5MnmD8SqlI9YUwFlDjuEtK84fOFGSL76xI6MuhrAZDZD";
-
+//var token = "CAAT6h9nizVIBAJ5o0GqEH52Wlwf8Anc8JJAzqmzJgH0ZAZAPZBTvCleKbGcrTR4fOlNRK12JiHHld2GjgT8seSkeXKveadeMEqHS6KcKYSfghHo2ux5h0doqc9WZA3WoeCgZA5QJCJWUZA8UIeh0nUpPKEOeyRXmndVm5MnmD8SqlI9YUwFlDjuEtK84fOFGSL76xI6MuhrAZDZD";
+var token = "EAAZAzKgUfDPMBADrcKsjeRlzJDwCgxbOqZBNnXxUsZBb6EVydwFtHrUtZCCkP6hizZBXgZCqwA0Lvx7sWtXRI5q0wDMS0warHYopAnsVWRh2FZCXyU0ZBMrLkOZAsLLukpnZCzDiQJZA2aTEyG3r0oPQJJ6cZBNBu5qeanAPi4GyXbUbxQZDZD";
 function sendTextMessage(sender, text) {
   console.log("In the sendTextMessage call");
   messageData = {
@@ -88,6 +91,78 @@ function sendTextMessage(sender, text) {
   });
 }
 
+//Respond to Postbacks
+function respondToPostbacks(sender,text){
+  console.log("Responding to postback");
+  console.log(text);
+  // postback = JSON.parse(text);
+  cases = text.payload.split(":");
+  console.log(cases[0]);
+  if(cases[0] === "Details"){
+      messageData = {
+    "attachment": {
+      "type": "template",
+      "payload": {
+        "template_type": "generic",
+        "elements": [{
+          "title": "Apple iPhone 6 Plus a1522 16GB for AT&T Gold Silver or Gray",
+          "subtitle": "Daily Deals",
+          "image_url": "http://i.ebayimg.com/00/s/MTAwMFgxMDAw/z/5tMAAOSw9mFWGNgN/$_1.JPG?set_id=880000500F",
+          "buttons": [{
+            "type": "postback",
+            "payload":  "Images: 252062798827 ",
+            "title": "More Images"
+          }, {
+            "type": "postback",
+            "title": "Buy It Now",
+            "payload": "BIN: 252062798827"
+          },
+          {
+            "type": "postback",
+            "title": "Deals",
+            "payload": "Deals"
+          }
+          ]
+        },{
+          "title": "Item Details",
+          "subtitle": "Seller Refurbished, Apple 16GB iPhone 6 Plus",
+          "image_url": "http://i.ebayimg.com/00/s/MTAwMFgxMDAw/z/EygAAOSw14xWGNgN/$_1.JPG?set_id=880000500F",
+          "buttons": [{
+            "type": "postback",
+            "payload":  "Deals",
+            "title": "Deals"
+          }, {
+            "type": "postback",
+            "title": "Buy It Now",
+            "payload": "BIN: 151876435362"
+          }]
+        }]
+      }
+    }
+  };
+  request({
+    url: 'https://graph.facebook.com/v2.6/me/messages',
+    qs: {access_token:token},
+    method: 'POST',
+    json: {
+      recipient: {id:sender},
+      message: messageData,
+    }
+  }, function(error, response, body) {
+    if (error) {
+      console.log('Error sending message: ', error);
+    } else if (response.body.error) {
+      console.log('Error: ', response.body.error);
+    }
+  });
+
+  }
+  else if(cases[0] === "BIN"){
+
+  }
+
+}
+
 //To send Structured Data
 
 function sendGenericMessage(sender) {
@@ -97,27 +172,31 @@ function sendGenericMessage(sender) {
       "payload": {
         "template_type": "generic",
         "elements": [{
-          "title": "First card",
-          "subtitle": "Element #1 of an hscroll",
-          "image_url": "http://messengerdemo.parseapp.com/img/rift.png",
+          "title": "Apple iPhone 6 Plus a1522 16GB for AT&T Gold Silver or Gray",
+          "subtitle": "Daily Deals",
+          "image_url": "http://i.ebayimg.com/00/s/MTAwMFgxMDAw/z/5tMAAOSw9mFWGNgN/$_35.JPG",
           "buttons": [{
-            "type": "web_url",
-            "url": "https://www.messenger.com/",
-            "title": "Web url"
+            "type": "postback",
+            "payload":  "Details: 252062798827 ",
+            "title": "View Details"
           }, {
             "type": "postback",
-            "title": "Postback",
-            "payload": "Payload for first element in a generic bubble",
-          }],
+            "title": "Buy It Now",
+            "payload": "BIN: 252062798827"
+          }]
         },{
-          "title": "Second card",
-          "subtitle": "Element #2 of an hscroll",
-          "image_url": "http://messengerdemo.parseapp.com/img/gearvr.png",
+          "title": "LG Nexus 5X H790 32GB (Factory GSM Unlocked) 4G LTE Android Smartphone- US Model",
+          "subtitle": "Daily Deals",
+          "image_url": "http://i.ebayimg.com/00/s/NTAwWDUwMA==/z/ToMAAOSw3YNXYzV6/$_35.JPG",
           "buttons": [{
             "type": "postback",
-            "title": "Postback",
-            "payload": "Payload for second element in a generic bubble",
-          }],
+            "title": "View Details",
+            "payload":  "Details: 151876435362 ",
+          }, {
+            "type": "postback",
+            "title": "Buy It Now",
+            "payload": "BIN: 151876435362"
+          }]
         }]
       }
     }
