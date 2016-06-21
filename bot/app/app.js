@@ -79,8 +79,9 @@ app.post('/webhook/', function (req, res) {
 res.sendStatus(200);
 });
 
-//var token = "CAAT6h9nizVIBAJ5o0GqEH52Wlwf8Anc8JJAzqmzJgH0ZAZAPZBTvCleKbGcrTR4fOlNRK12JiHHld2GjgT8seSkeXKveadeMEqHS6KcKYSfghHo2ux5h0doqc9WZA3WoeCgZA5QJCJWUZA8UIeh0nUpPKEOeyRXmndVm5MnmD8SqlI9YUwFlDjuEtK84fOFGSL76xI6MuhrAZDZD";
-var token = "EAAHBkfH5Ty4BAFOwopgrcBJiqjgWIbAzraZALZCwH5V2UGaK8mEzS2TKIsLX3rNIKWBTjoVBLPgURNQa7fATjF4hr8OMlNksCkXh24cVcbZBA3XyIw9JyqSaD3DyblCet9uYRbQg3437JXZAKqc8NEjh9NkEULdL3fpOPdhw6gZDZD";
+var token = "CAAT6h9nizVIBAJ5o0GqEH52Wlwf8Anc8JJAzqmzJgH0ZAZAPZBTvCleKbGcrTR4fOlNRK12JiHHld2GjgT8seSkeXKveadeMEqHS6KcKYSfghHo2ux5h0doqc9WZA3WoeCgZA5QJCJWUZA8UIeh0nUpPKEOeyRXmndVm5MnmD8SqlI9YUwFlDjuEtK84fOFGSL76xI6MuhrAZDZD";
+//Commenting the local token
+//var token = "EAAHBkfH5Ty4BAFOwopgrcBJiqjgWIbAzraZALZCwH5V2UGaK8mEzS2TKIsLX3rNIKWBTjoVBLPgURNQa7fATjF4hr8OMlNksCkXh24cVcbZBA3XyIw9JyqSaD3DyblCet9uYRbQg3437JXZAKqc8NEjh9NkEULdL3fpOPdhw6gZDZD";
 function sendTextMessage(sender, text) {
   console.log("In the sendTextMessage call");
   messageData = {
