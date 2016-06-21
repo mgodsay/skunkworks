@@ -168,12 +168,17 @@ const actions = {
   },
   merge(sessionId, context, entities, message, cb) {
 	   // Retrieve the location entity and store it into a context field
-	   const keyword = firstEntityValue(entities, 'search_keyword');
+	   var keyword = firstEntityValue(entities, 'search_keyword');
 	   console.log(keyword);
 	   if (keyword) {
+		   console.log("Keyword is : " + keyword);
 	     context.keyword = keyword;
+	    // keyword = null;
 	   }
+	   keyword = null;
+	   console.log("After setting keyword to null" + keyword);
 	   cb(context);
+	  
 	 },
   error(sessionId, context, error) {
     console.log(error.message);
@@ -181,13 +186,16 @@ const actions = {
   // You should implement your custom actions here
   // See https://wit.ai/docs/quickstart
   ['searchFor'](sessionId, context, cb) {
-	  const recipientId = sessions[sessionId].fbid;
+	  var recipientId = sessions[sessionId].fbid;
 	  console.log(recipientId);
+	  console.log(context);
 	    // Here should go the api call, e.g.:
 	    // context.forecast = apiCall(context.loc)
 	    sendGenericMessage(recipientId);
-	    context.forecast = 'sunny';
+	  //  context.forecast = 'sunny';
+	    context = null;
 	    cb(context);
+	   
 	  },
 };
 
@@ -275,7 +283,7 @@ app.post('/fb', (req, res) => {
 });
 
 function sendGenericMessage(sender) {
-	const  messageData = {
+	var  messageData = {
 	    "attachment": {
 	      "type": "template",
 	      "payload": {
