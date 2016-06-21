@@ -58,5 +58,9 @@
     "proxyquire": "^1.7.4",
     "request": "^2.70.0",
     "supertest": "^1.2.0"
+  },
+  "dependencies": {
+    "json-server": "^0.8.14",
+    "node-rest-client": "^1.8.0"
   }
 }
