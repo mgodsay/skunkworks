@@ -17,6 +17,8 @@
     "body-parser": "^1.15.1",
     "express": "^4.13.4",
     "node-wit": "^3.3.2",
-    "request": "^2.72.0"
+    "request": "^2.72.0",
+    "json-server": "^0.8.14",
+    "node-rest-client":"^1.8.0"
   }
 }
