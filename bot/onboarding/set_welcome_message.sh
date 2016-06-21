@@ -11,7 +11,26 @@ curl -X POST -H "Content-Type: application/json" -d '{
   "call_to_actions":[
     {
       "message":{
-        "text":"Hello There! I'\''m Bot, your personal eBay assistant. You can always reach me here!"
+        "attachment":{
+          "type":"template",
+          "payload":{
+            "template_type":"generic",
+            "elements":[
+              {
+                "title":"Welcome to eBay Bot! I am your personal eBay Assistant",
+                
+                
+                "buttons":[
+                  {
+                    "type":"postback",
+                    "title":"Start Chatting",
+                    "payload":"startChatting"
+                  }
+                ]
+              }
+            ]
+          }
+        }
       }
     }
   ]
