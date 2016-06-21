@@ -15,7 +15,12 @@
 // [START app]
 //'use strict';
 
-
+var startChattingFlag = false;
+var genderFlag = false;
+var  ageFlag = false;
+console.log("startChattingFlag is :",startChattingFlag);
+console.log("genderFlag is :",genderFlag);
+console.log("ageFlag is :",ageFlag);
 var express = require('express');
 var request = require("request")
 var app = express();
@@ -52,7 +57,14 @@ app.post('/webhook/', function (req, res) {
     if (text === 'Deals') {
       sendGenericMessage(sender);
       continue;
-    }else{
+    }else if (text === 'iPhone6'){
+      sendGenericMessage(sender);
+      continue;
+    }else if(text === 'Xbox 360'){
+      sendGenericMessage(sender);
+      continue;
+    }
+    else{
       // Handle a text message from this sender
       sendTextMessage(sender, "Text received, echo: "+ text.substring(0, 200));
     }
@@ -68,7 +80,8 @@ res.sendStatus(200);
 });
 
 var token = "CAAT6h9nizVIBAJ5o0GqEH52Wlwf8Anc8JJAzqmzJgH0ZAZAPZBTvCleKbGcrTR4fOlNRK12JiHHld2GjgT8seSkeXKveadeMEqHS6KcKYSfghHo2ux5h0doqc9WZA3WoeCgZA5QJCJWUZA8UIeh0nUpPKEOeyRXmndVm5MnmD8SqlI9YUwFlDjuEtK84fOFGSL76xI6MuhrAZDZD";
-//var token = "EAAZAzKgUfDPMBADrcKsjeRlzJDwCgxbOqZBNnXxUsZBb6EVydwFtHrUtZCCkP6hizZBXgZCqwA0Lvx7sWtXRI5q0wDMS0warHYopAnsVWRh2FZCXyU0ZBMrLkOZAsLLukpnZCzDiQJZA2aTEyG3r0oPQJJ6cZBNBu5qeanAPi4GyXbUbxQZDZD";
+//Commenting the local token
+//var token = "EAAHBkfH5Ty4BAFOwopgrcBJiqjgWIbAzraZALZCwH5V2UGaK8mEzS2TKIsLX3rNIKWBTjoVBLPgURNQa7fATjF4hr8OMlNksCkXh24cVcbZBA3XyIw9JyqSaD3DyblCet9uYRbQg3437JXZAKqc8NEjh9NkEULdL3fpOPdhw6gZDZD";
 function sendTextMessage(sender, text) {
   console.log("In the sendTextMessage call");
   messageData = {
@@ -96,8 +109,11 @@ function respondToPostbacks(sender,text){
   console.log("Responding to postback");
   console.log(text);
   // postback = JSON.parse(text);
+
+ 
   cases = text.payload.split(":");
   console.log(cases[0]);
+  messageData = "";
   if(cases[0] === "Details"){
       messageData = {
     "attachment": {
@@ -140,6 +156,95 @@ function respondToPostbacks(sender,text){
       }
     }
   };
+  
+
+  }
+  if(cases[0] === "BIN"){
+
+  }
+  
+  if((startChattingFlag === false)&&(cases[0] === "startChatting")){
+    startChattingFlag = true;
+    console.log("startChattingFlag in startChatting flow :",startChattingFlag);
+    messageData = {
+    "attachment": {
+      "type": "template",
+      "payload": {
+        "template_type": "generic",
+        "elements": [{
+          "title": "Great!let us get to know you better",
+          "buttons": [{
+            "type": "postback",
+            "payload":"Female",
+            "title": "Female"
+          }, {
+            "type": "postback",
+            "title": "Male",
+            "payload": "Male"
+          },
+          {
+            "type": "postback",
+            "title": "Skip",
+            "payload": "Skip"
+          }
+          ]
+        }]
+      }
+    }
+  };
+  console.log("Before Sending Request");
+  request({
+    url: 'https://graph.facebook.com/v2.6/me/messages',
+    qs: {access_token:token},
+    method: 'POST',
+    json: {
+      recipient: {id:sender},
+      message: messageData,
+    }
+  },
+  
+   function(error, response, body) {
+    
+    if (error) {
+      console.log('Error sending message: ', error);
+    } else if (response.body.error) {
+      console.log('Error: ', response.body.error);
+    }
+  });
+  
+
+  }
+  if ((genderFlag === false)&&(startChattingFlag === true)&&(cases[0] === "Male"||cases[0] === "Female" || cases[0] === "Skip")){
+    genderFlag = true;
+    console.log("startChattingFlag in Gender flow :",startChattingFlag);
+    console.log("genderFlag in Gender flow :",genderFlag);
+    messageData = {
+    "attachment": {
+      "type": "template",
+      "payload": {
+        "template_type": "generic",
+        "elements": [{
+          "title": "Great! Let's get to know your age",
+          "buttons": [{
+            "type": "postback",
+            "payload":"Teens",
+            "title": "15-25"
+          }, {
+            "type": "postback",
+            "title": "25-40",
+            "payload": "Adult"
+          },
+          {
+            "type": "postback",
+            "title": "40+",
+            "payload": "Old"
+          }
+          ]
+        }]
+      }
+    }
+  };
+
   request({
     url: 'https://graph.facebook.com/v2.6/me/messages',
     qs: {access_token:token},
@@ -157,7 +262,41 @@ function respondToPostbacks(sender,text){
   });
 
   }
-  else if(cases[0] === "BIN"){
+  
+  if ((ageFlag===false)&&(startChattingFlag===true)&&(genderFlag===true)&&(cases[0] === "Teens"||cases[0] === "Adult" || cases[0] === "Old")){
+    ageFlag = true;
+     console.log("startChattingFlag in Gender flow :",startChattingFlag);
+    console.log("genderFlag in Gender flow :",genderFlag);
+
+    messageData = {
+    "attachment": {
+      "type": "template",
+      "payload": {
+        "template_type": "generic",
+        "elements": [{
+          "title": "Great, You are almost there, tell us about your interests",
+          "subtitle":"like electronics, video games...."
+        }]
+      }
+    }
+  };
+
+  request({
+    url: 'https://graph.facebook.com/v2.6/me/messages',
+    qs: {access_token:token},
+    method: 'POST',
+    json: {
+      recipient: {id:sender},
+      message: messageData,
+    }
+  }, function(error, response, body) {
+    if (error) {
+      console.log('Error sending message: ', error);
+    } else if (response.body.error) {
+      console.log('Error: ', response.body.error);
+    }
+  });
+
 
   }
 
