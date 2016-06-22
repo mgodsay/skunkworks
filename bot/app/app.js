@@ -16,15 +16,12 @@
 //'use strict';
 
 const WIT_TOKEN = "JEJXL2EQG7OSFRQXOIGOCHILLZA2ETWT",
-	  FB_PAGE_ID = "199655460420017",
-	  FB_PAGE_TOKEN = "EAAT6h9nizVIBAGgBsKZA0n0BZADHnOy0foFB5VbeHZA0l0xwmZCQI8uHH89QUhHyWUAmQyEK8xdARugiMUxQqH0z54hAf4qvvzP9gZC5r9SLirUV6waFT7ZBtiW0nRIxa40zqrF2sl8dHRVGc4a685ClybNjADte8l6FcNtOjMpgZDZD";
+	  FB_PAGE_ID = "746337125506112",
+	  FB_PAGE_TOKEN = "EAAQZBN8Gxs4sBADz1brOWheYluPiFZCvrLKGD0rsknHIU4RcGyZBHKOGnBZCFilyG5AX5nOZBr1vJaUZBedZCs4Dsllhdy81ObZBV4CSnjS4BfCZB3O3Hm774mjch07ajZBvaUOIWJF84hsYKNWrpXZBi3WY0ob9suF320G8NKyS5CJFAZDZD";
  	  FB_VERIFY_TOKEN = "mobileFeatureQE",
  	  dbEndPoint = "http://localhost:3000";
 
-var	startChattingFlag = false,
-    genderFlag = false,
-    ageFlag = false,
-	express = require('express'),
+var	express = require('express'),
     request = require("request"),
     app = express(),
     port = 8080,
@@ -123,9 +120,9 @@ const actions = {
 };
 
 const wit = new Wit(WIT_TOKEN, actions);
-console.log("startChattingFlag is :",startChattingFlag);
-console.log("genderFlag is :",genderFlag);
-console.log("ageFlag is :",ageFlag);
+//console.log("startChattingFlag is :",startChattingFlag);
+//console.log("genderFlag is :",genderFlag);
+//console.log("ageFlag is :",ageFlag);
 
 
 app.use(bodyParser.json());
@@ -215,7 +212,8 @@ function respondToPostbacks(sender,text){
 	  onBoarding(text);
   }
 	  
-  if((startChattingFlag === false)&&(cases[0] === "startChatting") || ((genderFlag === false)&&(startChattingFlag === true)&&(cases[0] === "Male"||cases[0] === "Female" || cases[0] === "SkipGender"))|| ((ageFlag===false)&&(startChattingFlag===true)&&(genderFlag===true)&&(cases[0] === "Teens"||cases[0] === "Adult" || cases[0] === "SkipAge"))){	      
+  //if((startChattingFlag === false)&&(cases[0] === "startChatting") || ((genderFlag === false)&&(startChattingFlag === true)&&(cases[0] === "Male"||cases[0] === "Female" || cases[0] === "SkipGender"))|| ((ageFlag===false)&&(startChattingFlag===true)&&(genderFlag===true)&&(cases[0] === "Teens"||cases[0] === "Adult" || cases[0] === "SkipAge")))
+  if((cases[0] === "startChatting") || ((cases[0] === "Male"||cases[0] === "Female" || cases[0] === "SkipGender"))|| ((cases[0] === "Teens"||cases[0] === "Adult" || cases[0] === "SkipAge"))){	      
 	  onBoarding(text);
   }else{
     var action = text.payload.split(":"),
@@ -227,9 +225,10 @@ function respondToPostbacks(sender,text){
 
 function onBoarding(text){
   var cases = text.payload.split(":");
-   if((startChattingFlag === false)&&(cases[0] === "startChatting")){
-    startChattingFlag = true;
-    console.log("startChattingFlag in startChatting flow :",startChattingFlag);
+   //if((startChattingFlag === false)&&(cases[0] === "startChatting")){
+    if((cases[0] === "startChatting")){
+    //startChattingFlag = true;
+    //console.log("startChattingFlag in startChatting flow :",startChattingFlag);
         var elements = [];
         var tempData = {};
         tempData.title = "Great! Choose any of these options";
@@ -250,10 +249,11 @@ function onBoarding(text){
 	          elements.push(tempData);
 	          callFacebookAPI(sender,elements);
   }
-  if ((genderFlag === false)&&(startChattingFlag === true)&&(cases[0] === "Male"||cases[0] === "Female" || cases[0] === "SkipGender")){
-    genderFlag = true;
-    console.log("startChattingFlag in Gender flow :",startChattingFlag);
-    console.log("genderFlag in Gender flow :",genderFlag);
+  //if ((genderFlag === false)&&(startChattingFlag === true)&&(cases[0] === "Male"||cases[0] === "Female" || cases[0] === "SkipGender"))
+  if ((cases[0] === "Male"||cases[0] === "Female" || cases[0] === "SkipGender")){
+    //genderFlag = true;
+    //console.log("startChattingFlag in Gender flow :",startChattingFlag);
+    //console.log("genderFlag in Gender flow :",genderFlag);
    
       var elements = [];
       var tempData = {};
@@ -266,15 +266,17 @@ function onBoarding(text){
       callFacebookAPI(sender,elements);
      
        }
-      if ((ageFlag===false)&&(startChattingFlag===true)&&(genderFlag===true)&&(cases[0] === "Teens"||cases[0] === "Adult" || cases[0] === "Old" || cases[0] === "SkipAge")){
-       showInterests();
+      //if ((ageFlag===false)&&(startChattingFlag===true)&&(genderFlag===true)&&(cases[0] === "Teens"||cases[0] === "Adult" || cases[0] === "Old" || cases[0] === "SkipAge"))
+      if (cases[0] === "Teens"||cases[0] === "Adult" || cases[0] === "Old" || cases[0] === "SkipAge"){
+          showInterests();
       }
-  }
+}
+
     
 function showInterests(){ 
-    ageFlag = true;
-     console.log("startChattingFlag in Gender flow :",startChattingFlag);
-    console.log("genderFlag in Gender flow :",genderFlag);
+    //ageFlag = true;
+     //console.log("startChattingFlag in Gender flow :",startChattingFlag);
+    //console.log("genderFlag in Gender flow :",genderFlag);
 
         var elements = [];
         var tempData = {};
