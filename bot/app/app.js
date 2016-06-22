@@ -214,8 +214,7 @@ function respondToPostbacks(sender,text){
 	  onBoarding(text);
   }
 	  
-  if((startChattingFlag === false)&&(cases[0] === "startChatting") || ((genderFlag === false)&&(startChattingFlag === true)&&(cases[0] === "Male"||cases[0] === "Female" || cases[0] === "SkipGender"))|| ((ageFlag===false)&&(startChattingFlag===true)&&(genderFlag===true)&&(cases[0] === "Teens"||cases[0] === "Adult" || cases[0] === "SkipAge"))){
-	      
+  if((startChattingFlag === false)&&(cases[0] === "startChatting") || ((genderFlag === false)&&(startChattingFlag === true)&&(cases[0] === "Male"||cases[0] === "Female" || cases[0] === "SkipGender"))|| ((ageFlag===false)&&(startChattingFlag===true)&&(genderFlag===true)&&(cases[0] === "Teens"||cases[0] === "Adult" || cases[0] === "SkipAge"))){	      
 	  onBoarding(text);
   }else{
     var action = text.payload.split(":"),
@@ -395,6 +394,7 @@ var server = app.listen(process.env.PORT || '8080', '0.0.0.0', function() {
 var restClient = function(){
   return(new (require('node-rest-client').Client)());
 }
+require('../db/server');
 
 // [END app]
 
