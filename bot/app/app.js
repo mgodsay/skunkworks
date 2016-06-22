@@ -32,7 +32,8 @@ var	startChattingFlag = false,
     http = require('http'),
     fs = require('fs'),
     bodyParser = require('body-parser'),
-	Wit = require('node-wit').Wit;
+	Wit = require('node-wit').Wit,
+	sessionId = null;
     
 var search_keyword_entered = null;
 
@@ -44,7 +45,7 @@ var search_keyword_entered = null;
 var sessions = {};
 
 var findOrCreateSession = (fbid) => {
-	let sessionId;
+	
 	// Let's see if we already have a session for the user fbid
 	Object.keys(sessions).forEach(k => {
 		if (sessions[k].fbid === fbid) {
