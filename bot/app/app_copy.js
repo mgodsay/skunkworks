@@ -17,7 +17,7 @@
 
 const WIT_TOKEN = "JEJXL2EQG7OSFRQXOIGOCHILLZA2ETWT",
 	  FB_PAGE_ID = "104742293288778",
-	  FB_PAGE_TOKEN = "EAAZAzKgUfDPMBADrcKsjeRlzJDwCgxbOqZBNnXxUsZBb6EVydwFtHrUtZCCkP6hizZBXgZCqwA0Lvx7sWtXRI5q0wDMS0warHYopAnsVWRh2FZCXyU0ZBMrLkOZAsLLukpnZCzDiQJZA2aTEyG3r0oPQJJ6cZBNBu5qeanAPi4GyXbUbxQZDZD";
+	  FB_PAGE_TOKEN = "EAAZAzKgUfDPMBAJEggJwQ4KVevd1wtnKE6wZCWVwYblgzcs1a2W1eQyGkcuCiVZAe0ZAYTctYJ25mjGmLC9cZBR4XhOUZAIMvxTV54ITLG3bZCXtonqOZCFLVKc06gre6duQAu1nDeZCTTIzUADLgleZB6ZCOzc71GAeAxZAcJqyzRRA5wZDZD";
  	  FB_VERIFY_TOKEN = "mobileFeatureQE",
  	  dbEndPoint = "http://localhost:3000";
 
@@ -145,7 +145,7 @@ app.get('/webhook/', function (req, res) {
 
 
 app.post('/webhook/', function (req, res) {
-  console.log("I am in the webhook " + req.body);
+  console.log("I am in the webhook " + JSON.stringify(req.body));
   messaging_events = req.body.entry[0].messaging;
   for (i = 0; i < messaging_events.length; i++) {
     event = req.body.entry[0].messaging[i];
