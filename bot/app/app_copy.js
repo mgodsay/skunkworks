@@ -33,6 +33,8 @@ var	startChattingFlag = false,
     fs = require('fs'),
     bodyParser = require('body-parser'),
 	Wit = require('node-wit').Wit;
+    
+var search_keyword_entered = null;
 
 // Wit.ai bot specific code
 
@@ -111,7 +113,8 @@ const actions = {
 	  console.log(recipientId);
 	  console.log(context);
 	  // Here should go the api call, e.g.:
-	  getProducts(sender, context.keyword);
+	  search_keyword_entered = context.keyword;
+	  getProducts(sender, search_keyword_entered);
 	  context = null;
 	  cb(context); 
 	  },
@@ -202,8 +205,17 @@ app.post('/webhook/', function (req, res) {
 function respondToPostbacks(sender,text){
   console.log(text.payload);
   var cases = text.payload.split(":");
-  if((startChattingFlag === false)&&(cases[0] === "startChatting")){
-    onBoarding(text);
+  if((cases[0] === "SkipOnboarding")){
+	  console.log("Inside SkipOnboarding");
+	  showInterests();
+  }
+  if((cases[0] === "Onboarding")){
+	  onBoarding(text);
+  }
+	  
+  if((startChattingFlag === false)&&(cases[0] === "startChatting") || ((genderFlag === false)&&(startChattingFlag === true)&&(cases[0] === "Male"||cases[0] === "Female" || cases[0] === "SkipGender"))|| ((ageFlag===false)&&(startChattingFlag===true)&&(genderFlag===true)&&(cases[0] === "Teens"||cases[0] === "Adult" || cases[0] === "SkipAge"))){
+	      
+	  onBoarding(text);
   }else{
     var action = text.payload.split(":"),
         callback = action[0] + "(" + sender + ",'" + action[1] + "')";
@@ -217,150 +229,69 @@ function onBoarding(text){
    if((startChattingFlag === false)&&(cases[0] === "startChatting")){
     startChattingFlag = true;
     console.log("startChattingFlag in startChatting flow :",startChattingFlag);
-    messageData = {
-    "attachment": {
-      "type": "template",
-      "payload": {
-        "template_type": "generic",
-        "elements": [{
-          "title": "Great! Let us get to know you better",
-          "buttons": [{
-            "type": "postback",
-            "payload":"Female",
-            "title": "Female"
-          }, {
-            "type": "postback",
-            "title": "Male",
-            "payload": "Male"
-          },
-          {
-            "type": "postback",
-            "title": "Skip",
-            "payload": "Skip"
-          }
-          ]
-        }]
-      }
+        var elements = [];
+        var tempData = {};
+        tempData.title = "Great! Choose any of these options";
+        tempData.buttons = [{"type": "postback", "payload" : "Onboarding" , "title":"Onboarding"},
+                            {"type": "postback", "payload" : "SkipOnboarding" , "title":"Skip Onboarding"}];
+      elements.push(tempData);
+      callFacebookAPI(sender,elements);
     }
-  };
-
-  console.log("Before Sending Request");
-  request({
-    url: 'https://graph.facebook.com/v2.6/me/messages',
-    qs: {access_token:token},
-    method: 'POST',
-    json: {
-      recipient: {id:sender},
-      message: messageData,
-    }
-  },
-  
-   function(error, response, body) {
-    
-    if (error) {
-      console.log('Error sending message: ', error);
-    } else if (response.body.error) {
-      console.log('Error: ', response.body.error);
-    }
-  });
-  
-
+   if((cases[0] === "Onboarding"))
+	     {
+	         console.log("Onboarding");
+	          var elements = [];
+	          var tempData = {};
+	          tempData.title = "Great! Let us get to know you better";
+	          tempData.buttons = [{"type": "postback", "payload" : "Female" , "title":"Female"},
+	                            {"type": "postback", "payload" : "Male" , "title":"Male"},
+	                            {"type": "postback", "payload" : "SkipGender" , "title":"Skip"}];
+	          elements.push(tempData);
+	          callFacebookAPI(sender,elements);
   }
-  if ((genderFlag === false)&&(startChattingFlag === true)&&(cases[0] === "Male"||cases[0] === "Female" || cases[0] === "Skip")){
+  if ((genderFlag === false)&&(startChattingFlag === true)&&(cases[0] === "Male"||cases[0] === "Female" || cases[0] === "SkipGender")){
     genderFlag = true;
     console.log("startChattingFlag in Gender flow :",startChattingFlag);
     console.log("genderFlag in Gender flow :",genderFlag);
-    messageData = {
-    "attachment": {
-      "type": "template",
-      "payload": {
-        "template_type": "generic",
-        "elements": [{
-          "title": "Great! Let's get to know your age",
-          "buttons": [{
-            "type": "postback",
-            "payload":"Teens",
-            "title": "15-25"
-          }, {
-            "type": "postback",
-            "title": "25-40",
-            "payload": "Adult"
-          },
-          {
-            "type": "postback",
-            "title": "40+",
-            "payload": "Old"
-          }
-          ]
-        }]
+   
+      var elements = [];
+      var tempData = {};
+      tempData.title = "Great! Let's get to know your age";
+      tempData.buttons = [{"type": "postback", "payload" : "Teens", "title": "15-35"},
+                            {"type": "postback", "payload" : "Adult", "title": "35+"},
+                           
+                            {"type": "postback", "payload" : "SkipAge", "title": "Skip"}];
+      elements.push(tempData);
+      callFacebookAPI(sender,elements);
+     
+       }
+      if ((ageFlag===false)&&(startChattingFlag===true)&&(genderFlag===true)&&(cases[0] === "Teens"||cases[0] === "Adult" || cases[0] === "Old" || cases[0] === "SkipAge")){
+       showInterests();
       }
-    }
-  };
-
-  request({
-    url: 'https://graph.facebook.com/v2.6/me/messages',
-    qs: {access_token:token},
-    method: 'POST',
-    json: {
-      recipient: {id:sender},
-      message: messageData,
-    }
-  }, function(error, response, body) {
-    if (error) {
-      console.log('Error sending message: ', error);
-    } else if (response.body.error) {
-      console.log('Error: ', response.body.error);
-    }
-  });
-
   }
-  
-  if ((ageFlag===false)&&(startChattingFlag===true)&&(genderFlag===true)&&(cases[0] === "Teens"||cases[0] === "Adult" || cases[0] === "Old")){
+    
+function showInterests(){ 
     ageFlag = true;
      console.log("startChattingFlag in Gender flow :",startChattingFlag);
     console.log("genderFlag in Gender flow :",genderFlag);
 
-    messageData = {
-    "attachment": {
-      "type": "template",
-      "payload": {
-        "template_type": "generic",
-        "elements": [{
-          "title": "Great, You are almost there, tell us about your interests",
-          "subtitle":"like electronics, video games...."
-        }]
-      }
-    }
-  };
-
-  request({
-    url: 'https://graph.facebook.com/v2.6/me/messages',
-    qs: {access_token:token},
-    method: 'POST',
-    json: {
-      recipient: {id:sender},
-      message: messageData,
-    }
-  }, function(error, response, body) {
-    if (error) {
-      console.log('Error sending message: ', error);
-    } else if (response.body.error) {
-      console.log('Error: ', response.body.error);
-    }
-  });
-
-
-  }
+        var elements = [];
+        var tempData = {};
+        tempData.title = "Great, You are almost there, tell us about your interests";
+        tempData.subtitle = "like electronics, video games....";
+        
+        elements.push(tempData);
+        callFacebookAPI(sender,elements);
 }
 
 // SRP
 var getProducts = function(sender, keyword){
   restClient().get(dbEndPoint + "/products?q="+keyword, function (data, response) {
-    showSearchResults(sender, data.body);
+    showSearchResults(sender, data.body, keyword);
   });
 }
 
-var showSearchResults = function(sender, responseData) {
+var showSearchResults = function(sender, responseData, keyword) {
   var elements = [];
   responseData.forEach(function(object){
     var tempData = {};
@@ -390,7 +321,7 @@ var showItemDetails = function(sender, object) {
   tempData.image_url = object.image_url;
   tempData.buttons = [{"type": "postback", "payload" : "loadImages:" + object.id , "title":"More Images"},
                       {"type": "postback", "payload" : "buyItem:" + object.id, "title":"Buy It Now"},
-                      {"type": "postback", "payload" : "getProducts:iPhone", "title":"< Back to search results"}];
+                      {"type": "postback", "payload" : "getProducts:"+ search_keyword_entered, "title":"< Back to search results"}];
   elements.push(tempData);
   callFacebookAPI(sender, elements);
 };
