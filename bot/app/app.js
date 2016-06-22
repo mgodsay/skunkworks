@@ -117,6 +117,7 @@ const actions = {
 	  search_keyword_entered = context.keyword;
 	  getProducts(sender, search_keyword_entered);
 	  context = null;
+	  console.log("search_keyword_entered: " + search_keyword_entered );
 	  cb(context); 
 	  },
 };
@@ -394,7 +395,7 @@ var server = app.listen(process.env.PORT || '8080', '0.0.0.0', function() {
 var restClient = function(){
   return(new (require('node-rest-client').Client)());
 }
-require('../db/server');
+var dbServer = require('../db/server');
 
 // [END app]
 
