@@ -13,26 +13,26 @@
 // limitations under the License.
 
 // [START app]
-'use strict';
+//'use strict';
 
-const WIT_TOKEN = "JEJXL2EQG7OSFRQXOIGOCHILLZA2ETWT";
-const FB_PAGE_ID = "199655460420017";
-const FB_PAGE_TOKEN = "EAAT6h9nizVIBANVfqVgZCGMwMOf6TuAVuZCKl2cRiws7V7iFoztalZAGq3RuySden5IiDQ6q2QTZBZA2aIR73hZAuuAP1di4nrEHxGzFijavh4SwD0zLpqbvWHTm1oqkz6vMtdSayKsGqNgd2DvilF2U2gqZBrChZAkJ6gbDvomFEgZDZD";
-const FB_VERIFY_TOKEN = "mobileFeatureQE";
-const dbEndPoint = "http://localhost:3000";
+const WIT_TOKEN = "JEJXL2EQG7OSFRQXOIGOCHILLZA2ETWT",
+	  FB_PAGE_ID = "199655460420017",
+	  FB_PAGE_TOKEN = "EAAT6h9nizVIBAGgBsKZA0n0BZADHnOy0foFB5VbeHZA0l0xwmZCQI8uHH89QUhHyWUAmQyEK8xdARugiMUxQqH0z54hAf4qvvzP9gZC5r9SLirUV6waFT7ZBtiW0nRIxa40zqrF2sl8dHRVGc4a685ClybNjADte8l6FcNtOjMpgZDZD";
+ 	  FB_VERIFY_TOKEN = "mobileFeatureQE",
+ 	  dbEndPoint = "http://localhost:3000";
 
-var	startChattingFlag = false;
-var    genderFlag = false;
-var    ageFlag = false;
-var	express = require('express');
-var    request = require("request");
-var    app = express();
-var    port = 8080;
-var   https = require('https');
-var    http = require('http');
-var   fs = require('fs');
-var    bodyParser = require('body-parser');
-var	Wit = require('node-wit').Wit;
+var	startChattingFlag = false,
+    genderFlag = false,
+    ageFlag = false,
+	express = require('express'),
+    request = require("request"),
+    app = express(),
+    port = 8080,
+    https = require('https'),
+    http = require('http'),
+    fs = require('fs'),
+    bodyParser = require('body-parser'),
+	Wit = require('node-wit').Wit;
     
 var search_keyword_entered = null;
 
@@ -145,7 +145,7 @@ app.get('/webhook/', function (req, res) {
 
 
 app.post('/webhook/', function (req, res) {
-  console.log("I am in the webhook " + req.body);
+  console.log("I am in the webhook " + JSON.stringify(req.body));
   messaging_events = req.body.entry[0].messaging;
   for (i = 0; i < messaging_events.length; i++) {
     event = req.body.entry[0].messaging[i];
