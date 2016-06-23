@@ -17,7 +17,7 @@
 
 const WIT_TOKEN = "JEJXL2EQG7OSFRQXOIGOCHILLZA2ETWT",
 	  FB_PAGE_ID = "1004201676360899",
-	  FB_PAGE_TOKEN = "EAAT6h9nizVIBAJl2mso75ftDJFdNaqizhNtvsr8FZAAcZBLU1cZCa70I49fRlZAyI4l73IHG0gtDv42asOz84PLfTZBQ4pS6LsxYSvrPZCMurhjKounHRw2Op4ZCqgq8ZApvPROgwa6IpWR0OYgHMRYsgdYPtNIlBYnpHtHVKk6X5gZDZD";
+	  FB_PAGE_TOKEN = "EAAT6h9nizVIBAJl2mso75ftDJFdNaqizhNtvsr8FZAAcZBLU1cZCa70I49fRlZAyI4l73IHG0gtDv42asOz84PLfTZBQ4pS6LsxYSvrPZCMurhjKounHRw2Op4ZCqgq8ZApvPROgwa6IpWR0OYgHMRYsgdYPtNIlBYnpHtHVKk6X5gZDZD",
  	  FB_VERIFY_TOKEN = "mobileFeatureQE",
  	  dbEndPoint = "http://localhost:3000";
 
@@ -302,7 +302,7 @@ var showSearchResults = function(sender, responseData, keyword) {
     tempData.subtitle = object.subtitle;
     tempData.image_url = object.image_url;
     tempData.buttons = [{"type": "postback", "payload" : "getItemDetails:" + object.id, "title":"View Details"},
-                        {"type": "postback", "payload" : "buyItem: " + object.id, "title":"Buy It Now"}];
+                        {"type": "postback", "payload" : "buyItem:" + object.id, "title":"Buy It Now"}];
     elements.push(tempData);
   });
 
@@ -330,7 +330,7 @@ var showItemDetails = function(sender, object) {
 };
 
 
-// More Images
+// More images
 var loadImages = function(sender, itemId){
   restClient().get(dbEndPoint + "/images/"+itemId, function (data, response) {
     showMoreImages(sender, data.body);
@@ -351,9 +351,34 @@ var showMoreImages = function(sender, responseData) {
   callFacebookAPI(sender, elements);
  };
 
-// buyItem
+// Buy It Now
 var buyItem = function(sender, itemId){
-  callFacebookAPI(sender, "Thank you! Your order has been placed successfully. Your item will be delivered on or before 27th June 2016.");
+  restClient().get(dbEndPoint + "/products/"+itemId, function (data, response) {
+    confirmOrder(sender, data.body);
+  });
+}
+
+var confirmOrder = function(sender, object){
+
+  callFacebookAPI(sender, "Thank you!  Your order has been placed successfully.");
+
+  var messageData = {
+    "attachment":{
+      "type":"template",
+      "payload":{
+        "template_type":"receipt",
+        "recipient_name":"John Kennedy",
+        "order_number": object.id,
+        "currency":"USD",
+        "payment_method":"Visa 7384",
+        "elements":[{"title": object.title, "subtitle": "", "quantity":1, "price": object.price, "currency": "USD", "image_url": object.image_url}],
+        "address":{"street_1":"2145 Hamilton Avenue", "street_2":"", "city":"San Jose", "postal_code":"95125", "state":"CA", "country":"US"},
+        "summary":{"subtotal": object.price, "shipping_cost":0.00, "total_tax":0.00, "total_cost": object.price}
+      }
+    }
+  }
+
+  sendToFacebook(sender, messageData);
 };
 
 function callFacebookAPI(sender, elements){
@@ -367,6 +392,10 @@ function callFacebookAPI(sender, elements){
     }
   };
 
+  sendToFacebook(sender, messageData);
+}
+
+function sendToFacebook(sender, messageData){
   // console.log("messageData ---> " + messageData);
   request({
       url: 'https://graph.facebook.com/v2.6/me/messages',
@@ -384,7 +413,6 @@ function callFacebookAPI(sender, elements){
       }
     }
   );
-
 }
 
 // Start the server
