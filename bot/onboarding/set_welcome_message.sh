@@ -17,7 +17,7 @@ curl -X POST -H "Content-Type: application/json" -d '{
             "template_type":"generic",
             "elements":[
               {
-                "title":"Welcome to eBay! I am Bot, I am here to help you Shop Easy on eBay.",
+                "title":"Welcome to eBay! I'\''m Bot, made to make shopping easy.",
                 
                 
                 "buttons":[
