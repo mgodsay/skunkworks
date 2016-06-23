@@ -371,9 +371,9 @@ var confirmOrder = function(sender, object){
         "order_number": object.id,
         "currency":"USD",
         "payment_method":"Visa 7384",
-        "elements":[{"title": object.title, "subtitle": "", "quantity":1, "price": object.price ? object.price : 599.99, "currency": "USD", "image_url": object.image_url}],
+        "elements":[{"title": object.title, "subtitle": "", "quantity":1, "price": object.price, "currency": "USD", "image_url": object.image_url}],
         "address":{"street_1":"2145 Hamilton Avenue", "street_2":"", "city":"San Jose", "postal_code":"95125", "state":"CA", "country":"US"},
-        "summary":{"subtotal": object.price ? object.price : 599.99, "shipping_cost":0.00, "total_tax":0.00, "total_cost": object.price ? object.price : 599.99}
+        "summary":{"subtotal": object.price, "shipping_cost":0.00, "total_tax":0.00, "total_cost": object.price}
       }
     }
   }
