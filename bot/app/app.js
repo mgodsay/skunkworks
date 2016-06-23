@@ -232,8 +232,8 @@ function onBoarding(text){
         var elements = [];
         var tempData = {};
         tempData.title = "Great! Tell me more about yourself.";
-        tempData.buttons = [{"type": "postback", "payload" : "Onboarding" , "title":"Yes"},
-                            {"type": "postback", "payload" : "SkipOnboarding" , "title":"No Thanks!"}];
+        tempData.buttons = [{"type": "postback", "payload" : "Onboarding" , "title":"Sure"},
+                            {"type": "postback", "payload" : "SkipOnboarding" , "title":"Skip for now"}];
       elements.push(tempData);
       callFacebookAPI(sender,elements);
     }
@@ -242,7 +242,7 @@ function onBoarding(text){
 	         console.log("Onboarding");
 	          var elements = [];
 	          var tempData = {};
-	          tempData.title = "Thanks! Just 3 questions.";
+	          tempData.title = "Thanks! Just 2 questions.";
 	          tempData.buttons = [{"type": "postback", "payload" : "Female" , "title":"Female"},
 	                            {"type": "postback", "payload" : "Male" , "title":"Male"},
 	                            {"type": "postback", "payload" : "SkipGender" , "title":"Skip"}];
@@ -257,7 +257,7 @@ function onBoarding(text){
    
       var elements = [];
       var tempData = {};
-      tempData.title = "Thanks! 2 more to go";
+      tempData.title = "Thanks! Almost done";
       tempData.buttons = [{"type": "postback", "payload" : "Teens", "title": "15-35"},
                             {"type": "postback", "payload" : "Adult", "title": "35+"},
                            
@@ -280,8 +280,8 @@ function showInterests(){
 
         var elements = [];
         var tempData = {};
-        tempData.title = "Great, You are almost there, tell us about your interests";
-        tempData.subtitle = "like iphone, xbox, star wars....";
+        tempData.title = "Awesome! What are you looking for today? We have great deals going on.";
+        tempData.subtitle = "like iPhones, Game Consoles, etc...";
         
         elements.push(tempData);
         callFacebookAPI(sender,elements);
