@@ -2,98 +2,114 @@
     "products": [{
             "id": 131817570808,
             "title": "Xbox 360 E 4GB Console",
-            "subtitle": "Price:  $179.99 & FREE Shipping",
-            "image_url": "http://ir.ebaystatic.com/f/iwg4yncrzy0xve2x00xoa20ls24.jpg"
-            
+            "subtitle": "Price: $179.99 & FREE Shipping",
+            "image_url": "http://ir.ebaystatic.com/f/iwg4yncrzy0xve2x00xoa20ls24.jpg",
+            "price": 179.99
         },{
             "id": 200496101625,
             "title": "Microsoft Xbox 360 Arcade - Game console",
             "subtitle": "Price: $88.43 & FREE Standard Shipping",
-            "image_url": "http://ir.ebaystatic.com/f/u0rd3ygrdi2vpljd0kce2saqg2k.jpg"
+            "image_url": "http://ir.ebaystatic.com/f/u0rd3ygrdi2vpljd0kce2saqg2k.jpg",
+            "price": 88.43
         },{
             "id": 142022486481,
             "title": "Microsoft Xbox One 1TB Console - 5 Games Holiday Bundle",
-            "subtitle": "Price:  $15.99 & FREE Shipping",
-            "image_url": "http://ir.ebaystatic.com/f/25hmaqeepe1hbjjyrva0zfclyit.jpg"
+            "subtitle": "Price: $15.99 & FREE Shipping",
+            "image_url": "http://ir.ebaystatic.com/f/25hmaqeepe1hbjjyrva0zfclyit.jpg",
+            "price": 15.99
         },{
             "id": 281103386662,
             "title": "Microsoft Xbox 360 Console System with HDMI White",
-            "subtitle": "Price:  $84.99 & FREE Economy Shipping",
-            "image_url": "http://ir.ebaystatic.com/f/furpq1tzzq3i3jblvt5kczpaoix.jpg"
+            "subtitle": "Price: $84.99 & FREE Economy Shipping",
+            "image_url": "http://ir.ebaystatic.com/f/furpq1tzzq3i3jblvt5kczpaoix.jpg",
+            "price": 84.99
         },{
             "id": 181846283653,
             "title": "Microsoft XBOX 360 S Slim Glossy Black System- REPLACEMENT CONSOLE ONLY",
-            "subtitle": "Price:  $129 & FREE Standard Shipping",
-            "image_url": "http://ir.ebaystatic.com/f/sqhbzx05uyzutekuv25tngtqx2a.jpg "
+            "subtitle": "Price: $129 & FREE Standard Shipping",
+            "image_url": "http://ir.ebaystatic.com/f/sqhbzx05uyzutekuv25tngtqx2a.jpg",
+            "price": 129
         },
         {
             "id": 252178787308,
             "title": "Apple iPhone 6s - 16GB - Factory GSM Unlocked Smartphone Space Gray",
-            "subtitle": "Daily Deals, Free shipping, Price : $549.99",
-            "image_url": "http://ir.ebaystatic.com/f/uya0ubzv3u5rjedwwg0ppwzss2y.jpg"
+            "subtitle": "Daily Deals, Free shipping, Price: $549.99",
+            "image_url": "http://ir.ebaystatic.com/f/uya0ubzv3u5rjedwwg0ppwzss2y.jpg",
+            "price": 549.99
         },{
             "id": 141949325811,
             "title": "Apple iPhone 6s - 16GB - Factory GSM Unlocked Smartphone Silver",
-            "subtitle": "Daily Deals, Free shipping, Price : $599.99",
-            "image_url": "http://ir.ebaystatic.com/f/diqjncgl5ez1ndd5tfextde3umb.jpg"
+            "subtitle": "Daily Deals, Free shipping, Price: $549.99",
+            "image_url": "http://ir.ebaystatic.com/f/diqjncgl5ez1ndd5tfextde3umb.jpg",
+            "price": 549.99
         },{
             "id": 381462404692,
             "title": "Apple iPhone 6s - 16GB - Factory GSM Unlocked Smartphone Rose Gold",
-            "subtitle": "Daily Deals, Free shipping, Price : $529.99",
-            "image_url": "http://ir.ebaystatic.com/f/5t1tztfgie2yzb2y4vrmzqzniap.jpg"
+            "subtitle": "Daily Deals, Free shipping, Price: $529.99",
+            "image_url": "http://ir.ebaystatic.com/f/5t1tztfgie2yzb2y4vrmzqzniap.jpg",
+            "price": 529.99
         },
         {
             "id": 141708630407,
             "title": "Apple iPhone 6s - 16GB - Factory GSM Unlocked Smartphone Gold",
-            "subtitle": "Daily Deals, Free shipping, Price : $599.99",
-            "image_url": "http://ir.ebaystatic.com/f/5m3y4a0eoazofhjrbtudvmi1qix.jpg"
+            "subtitle": "Daily Deals, Free shipping, Price: $599.99",
+            "image_url": "http://ir.ebaystatic.com/f/5m3y4a0eoazofhjrbtudvmi1qix.jpg",
+            "price": 599.99
         },
         {
             "id": 152122849667,
             "title": "Apple iPhone SE - 16GB - Factory GSM Unlocked Smartphone Space Gray",
-            "subtitle": "Daily Deals, Free shipping, Price : $649.99",
-            "image_url": "http://ir.ebaystatic.com/f/z30qx0krymzmrpmgf03rm2a42mu.png"
+            "subtitle": "Daily Deals, Free shipping, Price: $649.99",
+            "image_url": "http://ir.ebaystatic.com/f/z30qx0krymzmrpmgf03rm2a42mu.png",
+            "price": 649.99
         },
         {
             "id": 331847586071,
             "title": "Apple iPhone SE - 16GB - Factory GSM Unlocked Smartphone Silver",
-            "subtitle": "Daily Deals, Free shipping, Price : $629.99",
-            "image_url": "http://ir.ebaystatic.com/f/pktlwhwx4azfzmgqzzeh0rru3ih.png"
+            "subtitle": "Daily Deals, Free shipping, Price: $629.99",
+            "image_url": "http://ir.ebaystatic.com/f/pktlwhwx4azfzmgqzzeh0rru3ih.png",
+            "price": 629.99
         },
         {
             "id": 291798940241,
             "title": "Apple iPhone SE - 16GB - Factory GSM Unlocked Smartphone Rose Gold",
-            "subtitle": "Daily Deals, Free shipping, Price : $699.99",
-            "image_url": "http://ir.ebaystatic.com/f/lig3r3r5omyatp3ljumurdktwqq.png"
+            "subtitle": "Daily Deals, Free shipping, Price: $699.99",
+            "image_url": "http://ir.ebaystatic.com/f/lig3r3r5omyatp3ljumurdktwqq.png",
+            "price": 699.99
         },
         {
             "id": 322059059481,
             "title": "Apple iPhone SE - 16GB - Factory GSM Unlocked Smartphone Gold",
-            "subtitle": "Daily Deals, Free shipping, Price : $629.99",
-            "image_url": "http://ir.ebaystatic.com/f/z4hnc5sque5axn1r44juvkck1mz.png"
+            "subtitle": "Daily Deals, Free shipping, Price: $629.99",
+            "image_url": "http://ir.ebaystatic.com/f/z4hnc5sque5axn1r44juvkck1mz.png",
+            "price": 629.99
         },
         {
             "id": 262429555232,
             "title": "Star Wars BB-8 App-Enabled Droid by Sphero",
-            "subtitle": "Free shipping, Price : $117.99",
-            "image_url": "http://ir.ebaystatic.com/f/asv1yuhoem3stj3ewovr3ncl2ah.jpg"
+            "subtitle": "Free shipping, Price: $117.99",
+            "image_url": "http://ir.ebaystatic.com/f/asv1yuhoem3stj3ewovr3ncl2ah.jpg",
+            "price": 117.99
         },
         {
             "id": 172084993345,
             "title": "Star Wars Darth Vader Upholstered Chair",
-            "subtitle": "Free shipping, Price : $52.49",
-            "image_url": "http://ir.ebaystatic.com/f/uzxfcxkera4dxktpm1diial5hyl.jpg"
+            "subtitle": "Free shipping, Price: $52.49",
+            "image_url": "http://ir.ebaystatic.com/f/uzxfcxkera4dxktpm1diial5hyl.jpg",
+            "price": 52.49
         },
         {
             "id": 162104879605,
             "title": "Star Wars Classic - 20 inch R2-D2",
             "subtitle": "Price:  $46.99 & FREE Shipping",
-            "image_url": "http://ir.ebaystatic.com/f/vbf12arqvy4dfalfuvwhkxsqre3.jpg"
+            "image_url": "http://ir.ebaystatic.com/f/vbf12arqvy4dfalfuvwhkxsqre3.jpg",
+            "price": 46.99
         }, {
             "id": 301956566540,
             "title": "Star Wars LEGO Slave I Toy",
             "subtitle": "Price:  $199.95 & FREE Shipping",
-            "image_url": "http://ir.ebaystatic.com/f/ilma3rmjyu5gnecrd3gdcnuqjar.jpg"
+            "image_url": "http://ir.ebaystatic.com/f/ilma3rmjyu5gnecrd3gdcnuqjar.jpg",
+            "price": 199.95
         }],
 
     "images": [{
