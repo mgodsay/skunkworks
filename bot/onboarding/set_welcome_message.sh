@@ -17,13 +17,13 @@ curl -X POST -H "Content-Type: application/json" -d '{
             "template_type":"generic",
             "elements":[
               {
-                "title":"Welcome to eBay Bot! I am your personal eBay Assistant",
+                "title":"Welcome to eBay! I am Bot, I am here to help you Shop Easy on eBay.",
                 
                 
                 "buttons":[
                   {
                     "type":"postback",
-                    "title":"Start Chatting",
+                    "title":"Let'\''s Shop!",
                     "payload":"startChatting"
                   }
                 ]

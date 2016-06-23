@@ -16,8 +16,8 @@
 //'use strict';
 
 const WIT_TOKEN = "JEJXL2EQG7OSFRQXOIGOCHILLZA2ETWT",
-	  FB_PAGE_ID = "746337125506112",
-	  FB_PAGE_TOKEN = "EAAQZBN8Gxs4sBADz1brOWheYluPiFZCvrLKGD0rsknHIU4RcGyZBHKOGnBZCFilyG5AX5nOZBr1vJaUZBedZCs4Dsllhdy81ObZBV4CSnjS4BfCZB3O3Hm774mjch07ajZBvaUOIWJF84hsYKNWrpXZBi3WY0ob9suF320G8NKyS5CJFAZDZD";
+	  FB_PAGE_ID = "1004201676360899",
+	  FB_PAGE_TOKEN = "EAAT6h9nizVIBAJl2mso75ftDJFdNaqizhNtvsr8FZAAcZBLU1cZCa70I49fRlZAyI4l73IHG0gtDv42asOz84PLfTZBQ4pS6LsxYSvrPZCMurhjKounHRw2Op4ZCqgq8ZApvPROgwa6IpWR0OYgHMRYsgdYPtNIlBYnpHtHVKk6X5gZDZD";
  	  FB_VERIFY_TOKEN = "mobileFeatureQE",
  	  dbEndPoint = "http://localhost:3000";
 
@@ -231,9 +231,9 @@ function onBoarding(text){
     //console.log("startChattingFlag in startChatting flow :",startChattingFlag);
         var elements = [];
         var tempData = {};
-        tempData.title = "Great! Choose any of these options";
-        tempData.buttons = [{"type": "postback", "payload" : "Onboarding" , "title":"Onboarding"},
-                            {"type": "postback", "payload" : "SkipOnboarding" , "title":"Skip Onboarding"}];
+        tempData.title = "Great! Tell me more about yourself.";
+        tempData.buttons = [{"type": "postback", "payload" : "Onboarding" , "title":"Yes"},
+                            {"type": "postback", "payload" : "SkipOnboarding" , "title":"No Thanks!"}];
       elements.push(tempData);
       callFacebookAPI(sender,elements);
     }
@@ -242,7 +242,7 @@ function onBoarding(text){
 	         console.log("Onboarding");
 	          var elements = [];
 	          var tempData = {};
-	          tempData.title = "Great! Let us get to know you better";
+	          tempData.title = "Thanks! Just 3 questions.";
 	          tempData.buttons = [{"type": "postback", "payload" : "Female" , "title":"Female"},
 	                            {"type": "postback", "payload" : "Male" , "title":"Male"},
 	                            {"type": "postback", "payload" : "SkipGender" , "title":"Skip"}];
@@ -257,7 +257,7 @@ function onBoarding(text){
    
       var elements = [];
       var tempData = {};
-      tempData.title = "Great! Let's get to know your age";
+      tempData.title = "Thanks! 2 more to go";
       tempData.buttons = [{"type": "postback", "payload" : "Teens", "title": "15-35"},
                             {"type": "postback", "payload" : "Adult", "title": "35+"},
                            
@@ -281,7 +281,7 @@ function showInterests(){
         var elements = [];
         var tempData = {};
         tempData.title = "Great, You are almost there, tell us about your interests";
-        tempData.subtitle = "like electronics, video games....";
+        tempData.subtitle = "like iphone, xbox, star wars....";
         
         elements.push(tempData);
         callFacebookAPI(sender,elements);
