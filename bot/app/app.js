@@ -16,15 +16,12 @@
 //'use strict';
 
 const WIT_TOKEN = "JEJXL2EQG7OSFRQXOIGOCHILLZA2ETWT",
-	  FB_PAGE_ID = "199655460420017",
-	  FB_PAGE_TOKEN = "EAAT6h9nizVIBAGgBsKZA0n0BZADHnOy0foFB5VbeHZA0l0xwmZCQI8uHH89QUhHyWUAmQyEK8xdARugiMUxQqH0z54hAf4qvvzP9gZC5r9SLirUV6waFT7ZBtiW0nRIxa40zqrF2sl8dHRVGc4a685ClybNjADte8l6FcNtOjMpgZDZD";
+	  FB_PAGE_ID = "1004201676360899",
+	  FB_PAGE_TOKEN = "EAAT6h9nizVIBAJl2mso75ftDJFdNaqizhNtvsr8FZAAcZBLU1cZCa70I49fRlZAyI4l73IHG0gtDv42asOz84PLfTZBQ4pS6LsxYSvrPZCMurhjKounHRw2Op4ZCqgq8ZApvPROgwa6IpWR0OYgHMRYsgdYPtNIlBYnpHtHVKk6X5gZDZD";
  	  FB_VERIFY_TOKEN = "mobileFeatureQE",
  	  dbEndPoint = "http://localhost:3000";
 
-var	startChattingFlag = false,
-    genderFlag = false,
-    ageFlag = false,
-	express = require('express'),
+var	express = require('express'),
     request = require("request"),
     app = express(),
     port = 8080,
@@ -123,9 +120,9 @@ const actions = {
 };
 
 const wit = new Wit(WIT_TOKEN, actions);
-console.log("startChattingFlag is :",startChattingFlag);
-console.log("genderFlag is :",genderFlag);
-console.log("ageFlag is :",ageFlag);
+//console.log("startChattingFlag is :",startChattingFlag);
+//console.log("genderFlag is :",genderFlag);
+//console.log("ageFlag is :",ageFlag);
 
 
 app.use(bodyParser.json());
@@ -215,7 +212,8 @@ function respondToPostbacks(sender,text){
 	  onBoarding(text);
   }
 	  
-  if((startChattingFlag === false)&&(cases[0] === "startChatting") || ((genderFlag === false)&&(startChattingFlag === true)&&(cases[0] === "Male"||cases[0] === "Female" || cases[0] === "SkipGender"))|| ((ageFlag===false)&&(startChattingFlag===true)&&(genderFlag===true)&&(cases[0] === "Teens"||cases[0] === "Adult" || cases[0] === "SkipAge"))){	      
+  //if((startChattingFlag === false)&&(cases[0] === "startChatting") || ((genderFlag === false)&&(startChattingFlag === true)&&(cases[0] === "Male"||cases[0] === "Female" || cases[0] === "SkipGender"))|| ((ageFlag===false)&&(startChattingFlag===true)&&(genderFlag===true)&&(cases[0] === "Teens"||cases[0] === "Adult" || cases[0] === "SkipAge")))
+  if((cases[0] === "startChatting") || ((cases[0] === "Male"||cases[0] === "Female" || cases[0] === "SkipGender"))|| ((cases[0] === "Teens"||cases[0] === "Adult" || cases[0] === "SkipAge"))){	      
 	  onBoarding(text);
   }else{
     var action = text.payload.split(":"),
@@ -227,14 +225,15 @@ function respondToPostbacks(sender,text){
 
 function onBoarding(text){
   var cases = text.payload.split(":");
-   if((startChattingFlag === false)&&(cases[0] === "startChatting")){
-    startChattingFlag = true;
-    console.log("startChattingFlag in startChatting flow :",startChattingFlag);
+   //if((startChattingFlag === false)&&(cases[0] === "startChatting")){
+    if((cases[0] === "startChatting")){
+    //startChattingFlag = true;
+    //console.log("startChattingFlag in startChatting flow :",startChattingFlag);
         var elements = [];
         var tempData = {};
-        tempData.title = "Great! Choose any of these options";
-        tempData.buttons = [{"type": "postback", "payload" : "Onboarding" , "title":"Onboarding"},
-                            {"type": "postback", "payload" : "SkipOnboarding" , "title":"Skip Onboarding"}];
+        tempData.title = "Great! Tell me more about yourself.";
+        tempData.buttons = [{"type": "postback", "payload" : "Onboarding" , "title":"Sure"},
+                            {"type": "postback", "payload" : "SkipOnboarding" , "title":"Skip for now"}];
       elements.push(tempData);
       callFacebookAPI(sender,elements);
     }
@@ -243,21 +242,22 @@ function onBoarding(text){
 	         console.log("Onboarding");
 	          var elements = [];
 	          var tempData = {};
-	          tempData.title = "Great! Let us get to know you better";
+	          tempData.title = "Thanks! Just 2 questions.";
 	          tempData.buttons = [{"type": "postback", "payload" : "Female" , "title":"Female"},
 	                            {"type": "postback", "payload" : "Male" , "title":"Male"},
 	                            {"type": "postback", "payload" : "SkipGender" , "title":"Skip"}];
 	          elements.push(tempData);
 	          callFacebookAPI(sender,elements);
   }
-  if ((genderFlag === false)&&(startChattingFlag === true)&&(cases[0] === "Male"||cases[0] === "Female" || cases[0] === "SkipGender")){
-    genderFlag = true;
-    console.log("startChattingFlag in Gender flow :",startChattingFlag);
-    console.log("genderFlag in Gender flow :",genderFlag);
+  //if ((genderFlag === false)&&(startChattingFlag === true)&&(cases[0] === "Male"||cases[0] === "Female" || cases[0] === "SkipGender"))
+  if ((cases[0] === "Male"||cases[0] === "Female" || cases[0] === "SkipGender")){
+    //genderFlag = true;
+    //console.log("startChattingFlag in Gender flow :",startChattingFlag);
+    //console.log("genderFlag in Gender flow :",genderFlag);
    
       var elements = [];
       var tempData = {};
-      tempData.title = "Great! Let's get to know your age";
+      tempData.title = "Thanks! Almost done";
       tempData.buttons = [{"type": "postback", "payload" : "Teens", "title": "15-35"},
                             {"type": "postback", "payload" : "Adult", "title": "35+"},
                            
@@ -266,20 +266,22 @@ function onBoarding(text){
       callFacebookAPI(sender,elements);
      
        }
-      if ((ageFlag===false)&&(startChattingFlag===true)&&(genderFlag===true)&&(cases[0] === "Teens"||cases[0] === "Adult" || cases[0] === "Old" || cases[0] === "SkipAge")){
-       showInterests();
+      //if ((ageFlag===false)&&(startChattingFlag===true)&&(genderFlag===true)&&(cases[0] === "Teens"||cases[0] === "Adult" || cases[0] === "Old" || cases[0] === "SkipAge"))
+      if (cases[0] === "Teens"||cases[0] === "Adult" || cases[0] === "Old" || cases[0] === "SkipAge"){
+          showInterests();
       }
-  }
+}
+
     
 function showInterests(){ 
-    ageFlag = true;
-     console.log("startChattingFlag in Gender flow :",startChattingFlag);
-    console.log("genderFlag in Gender flow :",genderFlag);
+    //ageFlag = true;
+     //console.log("startChattingFlag in Gender flow :",startChattingFlag);
+    //console.log("genderFlag in Gender flow :",genderFlag);
 
         var elements = [];
         var tempData = {};
-        tempData.title = "Great, You are almost there, tell us about your interests";
-        tempData.subtitle = "like electronics, video games....";
+        tempData.title = "Awesome! What are you looking for today? We have great deals going on.";
+        tempData.subtitle = "like iPhones, Game Consoles, etc...";
         
         elements.push(tempData);
         callFacebookAPI(sender,elements);
